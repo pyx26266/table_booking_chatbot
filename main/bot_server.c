@@ -33,7 +33,7 @@ void handle_client_disconnect(int sockfd);
 
 int main(int argc, char const *argv[]) {
   if (argc < 2)
-    error("usage: ./server.out <port number>");
+    error("usage: ./ChatBot <port number>");
 
   int server_sockfd = setupListener(strtol(argv[1], NULL, 10));
   if (server_sockfd == ERROR) {
