@@ -1,8 +1,8 @@
- 
+
 cmake_minimum_required(VERSION 2.8)
 
-project(Game C)
+project(ChatBot C)
 
-add_executable(server.out bot_server.c)
-
-add_executable(client.out client.c)
+add_subdirectory ( record_list )
+add_subdirectory ( basic_socket_functions)
+add_subdirectory ( main )
