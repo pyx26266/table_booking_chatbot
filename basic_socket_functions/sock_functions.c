@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <string.h>
+#include <arpa/inet.h>
 #include "../record_list/user_struct.h" // this way of adding header is temprory fix
 
 #include "sock_functions.h"
@@ -76,11 +77,13 @@ int setupListener(int port_number) {
 
 
     listen(sockfd, 5);
+    printf("Serving at %s port %d\n", inet_ntoa(serv_addr.sin_addr), port_number);
+
     // Return the socket number.
     return sockfd;
 }
 
-int connectToServer(int portno) {
+int connectToServer(char *s_addr, int portno) {
   struct sockaddr_in serv_addr;
   struct hostent *server;
 
@@ -91,7 +94,7 @@ int connectToServer(int portno) {
       error("ERROR opening socket for server.");
 
   // Get the address of the server.
-  server = gethostbyname("localhost");
+  server = gethostbyname(s_addr);
 
   if (server == NULL) {
       fprintf(stderr,"ERROR, no such host\n");

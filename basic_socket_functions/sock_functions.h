@@ -9,7 +9,7 @@ void error(const char *msg);
 int setupListener(int port_number);
 
 // this one is for client to connect to given port on localhost
-int connectToServer(int port_number);
+int connectToServer(char *s_addr, int port_number);
 
 // this function is not mature yet
 // it sends record struct as whole which won't work between two machines

@@ -1,4 +1,7 @@
+#include <arpa/inet.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <time.h>
 #include <netinet/ip.h>
 #include <record_list/record_linked_list.h>
@@ -24,6 +27,7 @@ int main(int argc, char const *argv[]) {
   if (server_sockfd == ERROR) {
     error("Error creating socket!");
   }
+
   struct sockaddr_in address;
   int addrlen = sizeof(address);
 
@@ -31,6 +35,10 @@ int main(int argc, char const *argv[]) {
   while (TRUE && !FALSE) {
     int client_sockfd = accept(server_sockfd, (struct sockaddr *)&address,
                                                       (socklen_t*)&addrlen);
+
+    printf("\nGot connection from: %s", inet_ntoa(address.sin_addr));
+    printf(":%d\n", htons(address.sin_port));
+
     int option = recvInt(client_sockfd);
     if (option == ERROR) {
       // thought to include continue in the function
@@ -56,6 +64,7 @@ int main(int argc, char const *argv[]) {
         }
 
         user.ref_number = random_generator();
+        printf("Recieved Record");
         displayRecord(user);
         insertRecord(&start, user);
         sendInt(client_sockfd, user.ref_number);
@@ -100,21 +109,25 @@ int main(int argc, char const *argv[]) {
 
         // record is sent for a confirmation to delete
         user_ptr = getRecord(start, user.ref_number);
-        sendRecord(client_sockfd, *user_ptr);
-
-        // remember, client sends 0 as succcess
-        // cause strcmp returns 0 on match.
-        int response = recvInt(client_sockfd);
-        if (response == ERROR) {
-          handle_client_disconnect(client_sockfd);
-          continue;
-        // thats why we have used !response
-        } else if (!response) {
-          deleteRecord(&start, user.ref_number);
-          printf("Record deleted successfully.\n");
+        if (user_ptr == NULL) {
+          printf("Nothing to delete...\n");
         } else {
-          printf("Record not deleted.\n");
+          sendRecord(client_sockfd, *user_ptr);
+          // remember, client sends 0 as succcess
+          // cause strcmp returns 0 on match.
+          int response = recvInt(client_sockfd);
+          if (response == ERROR) {
+            handle_client_disconnect(client_sockfd);
+            continue;
+          // thats why we have used !response
+          } else if (!response) {
+            deleteRecord(&start, user.ref_number);
+            printf("Record deleted successfully.\n");
+          } else {
+            printf("Record not deleted.\n");
+          }
         }
+
         break;
       default:
         printf("Invalid option %d\n", option);

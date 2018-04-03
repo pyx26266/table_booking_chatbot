@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 #include <netinet/ip.h>
 #include <record_list/record_linked_list.h>
 #include <basic_socket_functions/sock_functions.h>
@@ -11,7 +14,7 @@ int main(int argc, char const *argv[]) {
   int server_sockfd;
 
   while (1) {
-    server_sockfd = connectToServer(strtol(argv[1], NULL, 10));
+    server_sockfd = connectToServer("localhost", strtol(argv[1], NULL, 10));
     displayMenu();
 
     // also to store status message while receving data.
@@ -19,6 +22,11 @@ int main(int argc, char const *argv[]) {
 
     printf(">>> ");
     scanf(" %d", &response);
+    if (response == 4) {
+      close(server_sockfd);
+      exit(0);
+    }
+
     sendInt(server_sockfd, response);
 
     response = recvInt(server_sockfd);
@@ -82,7 +90,7 @@ int main(int argc, char const *argv[]) {
           error("Server disconnected");
         if (response) {
           displayRecord(user);
-          printf("Are you sure: (yes/No)\n");
+          printf("Are you sure: (yes/No): ");
         } else {
           error("Record not found.");
         }
@@ -106,5 +114,5 @@ int main(int argc, char const *argv[]) {
 
 
 void displayMenu() {
-  printf("\nWelcome to the booking system.\n\t1. Book\n\t2. View booking\n\t3. Cancel\n");
+  printf("\nWelcome to the booking system.\n\t1. Book\n\t2. View booking\n\t3. Cancel\n\t4. Exit\n");
 }
