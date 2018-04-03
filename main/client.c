@@ -1,3 +1,14 @@
+/* Author: Aman kumar Sah
+ * NIT Durgapur, 20150128
+ * Mob: 7864864625
+ * Email: amankumar.msjps@gmail.com
+ */
+ 
+// This is client program working on localhost at given port.
+// It gives 3 option book, view and delete a record.
+// each time input is given it sends it to the server.
+// And it closes the connection with each query.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

@@ -1,3 +1,15 @@
+/* Author: Aman kumar Sah
+ * NIT Durgapur, 20150128
+ * Mob: 7864864625
+ * Email: amankumar.msjps@gmail.com
+ */
+
+// This is server program, actually a bot which on connection controls the
+// client process by sending hex values can be found in symbols.h file.
+// It currently works on localhost very well and may not work or may show some
+// anomaly if run on diffrent machine due to various padding method of struct
+// of a compiler.
+
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
