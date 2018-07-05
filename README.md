@@ -1,4 +1,7 @@
-A chatbot program which can be used for booking and cancellation of tables in a restaurant.
+# ChatBot for Table booking
+## Overview
+
+> A chatbot program which can be used for booking and cancellation of tables in a restaurant.
 If the user wants to book a table, then bot must ask
   A. user's name
   B. number of seats
@@ -26,11 +29,12 @@ Client,
   instead of the struct type.
 
 To Run,
-  ```mkdir build
-     cd build
-     cmake ..
-     make
+  ```bash
+mkdir build
+cd build
+cmake ..
+make
 
-     $ ./main/ChatBot 6005
-     $ ./main/client 6005
+$ ./main/ChatBot 6005
+$ ./main/client 6005
   ```
