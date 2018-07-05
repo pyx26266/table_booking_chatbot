@@ -15,22 +15,18 @@ with the user as client and server as chatbot.
 ## Short Description:
 
 #### Server,
-  <p>
-  As a chatbot, which communicates to client using some predefined codes as
+> As a chatbot, which communicates to client using some predefined codes as
   command. it can add, delete, and transfer record.
   It uses a dynamic link list to store user data in RAM only.
   File storage module can be possible update.
-  </p>
 
 #### Client,
-  <p>
-  As a user client, displays menu, takes input, sends it to server.
+> As a user client, displays menu, takes input, sends it to server.
   get status and data from server coordinated using some hex constants
   as commands.
   Also to run successfully on diffrent machines the data transfer between
   server and client should be done in basic string and integer transfer
   instead of the struct type.
-  </p>
 
 To Run,
   ```bash
